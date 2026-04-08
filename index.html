@@ -1,0 +1,180 @@
+     display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .col-span-2 { grid-column: span 1; }
+    }
+    @media (max-width: 600px) {
+      .grid-4 { grid-template-columns: 1fr; }
+      .main { padding: 16px; }
+      .tabs { padding: 0 16px; overflow-x: auto; }
+    }
+
+    /* ── SPARKLINE ── */
+    .sparkline-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 28px;
+      margin-top: 10px;
+    }
+    .spark-bar {
+      flex: 1;
+      background: var(--accent);
+      opacity: 0.25;
+      border-radius: 2px;
+      min-height: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>AI Strategy Discovery</h1>
+    <span>Executive Insight Dashboard · Stakeholder: Adam Pettit, CEO</span>
+  </div>
+  <div class="header-right">
+    <span class="badge" style="background: var(--accent2); color: #000;">🎙 Phase 1 Day 2 — Interviews Live · 8 Sessions Today</span>
+    <span class="badge grey">6 Complete · 2 In Progress · 8 Running Today · 53 Total</span>
+    <span class="last-upted = true;
+
+    const themeCtx = document.getElementById('themeChart').getContext('2d');
+    // Day 1 data — 6 interviews: Jimmy (Eng), Steve (Sales), Weldon (Leadership), Maz (Solutions), Daniel (Marketing), Ashley (Ops)
+    new Chart(themeCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Governance & Risk', 'Skills & Change Mgmt', 'Infrastructure Gap', 'Product Dev / API-first', 'Process Automation', 'Knowledge Mgmt', 'Customer Exp / CX', 'Data & Analytics'],
+        datasets: [{
+          label: 'Interviews mentioning (of 6)',
+          data: [6, 6, 5, 4, 4, 3, 2, 2],
+          backgroundColor: [
+            'rgba(255,107,107,0.55)', 'rgba(255,107,107,0.55)',
+            'rgba(255,209,102,0.55)', 'rgba(108,99,255,0.45)',
+            'rgba(108,99,255,0.45)', 'rgba(0,212,170,0.35)',
+            'rgba(0,212,170,0.25)', 'rgba(0,212,170,0.25)'
+          ],
+          borderRadius: 6,
+          borderSkipped: false
+        }]
+      },          label: 'Interviews mentioning (of 6)',
+          data: [6, 6, 5, 4, 4, 3, 2, 2],
+          backgroundColor: [
+            'rgba(255,107,107,0.55)', 'rgba(255,107,107,0.55)',
+            'rgba(255,209,102,0.55)', 'rgba(108,99,255,0.45)',
+            'rgba(108,99,255,0.45)', 'rgba(0,212,170,0.35)',
+            'rgba(0,212,170,0.25)', 'rgba(0,212,170,0.25)'
+          ],
+          borderRadius: 6,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: ctx => `  ${ctx.raw} of 6 interviews` } }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(46,50,80,0.5)' }, ticks: { color: '#8b90b8', font: { size: 11 } }, min: 0, max: 6 },
+          y: { grid: { display: false }, ticks: { color: '#e8eaf6', font: { size: 11 } } }
+        }
+      }
+    });
+
+    const fnCtx = document.getElementById('functionThemeChart').getContext('2d');
+    // Axes: how prominently each function raised each theme (1–5 scale)
+    new Chart(fnCtx, {
+      type: 'radar',
+      data: {
+        labels: ['Automation', 'Data/Analytics', 'CX', 'Knowledge', 'Governance', 'Product Dev'],
+        datasets: [
+          {
+            label: 'Engineering (Jimmy)',
+            data: [3, 2, 1, 2, 4, 5],
+            borderColor: 'rgba(108,99,255,0.9)', backgroundColor: 'rgba(108,99,255,0.08)',
+            pointBackgroundColor: 'rgba(108,99,255,0.9)', borderWidth: 2
+          },
+          {
+            label: 'Sales/Solutions (Steve · Maz)',
+            data: [3, 2, 3, 2, 5, 3],
+            borderColor: 'rgba(0,212,170,0.9)', backgroundColor: 'rgba(0,212,170,0.08)',
+            pointBackgroundColor: 'rgba(0,212,170,0.9)', borderWidth: 2
+          },
+          {
+            label: 'Marketing (Daniel)',
+            data: [4, 4, 2, 3, 3, 3],
+            borderColor: 'rgba(255,209,102,0.9)', backgroundColor: 'rgba(255,209,102,0.08)',
+            pointBackgroundColor: 'rgba(255,209,102,0.9)', borderWidth: 2
+          },
+          {
+            label: 'Ops/Leadership (Ashley · Weldon)',
+            data: [4, 1, 1, 3, 3, 4],
+            borderColor: 'rgba(255,107,107,0.9)', backgroundColor: 'rgba(255,107,107,0.08)',
+            pointBackgroundColor: 'rgba(255,107,107,0.9)', borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { labels: { color: '#8b90b8', font: { size: 10 }, boxWidth: 12 } } },
+        scales: {
+          r: {
+            grid: { color: 'rgba(46,50,80,0.6)' },
+            angleLines: { color: 'rgba(46,50,80,0.6)' },
+            ticks: { display: false },
+            pointLabels: { color: '#e8eaf6', font: { size: 11 } },
+            min: 0, max: 5, suggestedMax: 5
+          }
+        }
+      }
+    });
+  }
+
+  // ── MATURITY CHART (empty — will populate with real data) ──
+  let maturityChartInited = false;
+  function initMaturityChart() {
+    if (maturityChartInited) return;
+    maturityChartInited = true;
+    const ctx = document.getElementById('maturityChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['L1 Unaware', 'L2 Experimenting', 'L3 Adopting', 'L4 Scaling', 'L5 Transforming'],
+        datasets: [{
+          // Day 1: L1=0, L2=2 (Steve·Ashley), L3=2 (Weldon·Daniel), L4=2 (Jimmy·Maz), L5=0
+          data: [0, 2, 2, 2, 0],
+          backgroundColor: [
+            'rgba(255,107,107,0.4)', 'rgba(255,209,102,0.4)',
+            'rgba(108,99,255,0.4)', 'rgba(0,212,170,0.4)', 'rgba(0,255,200,0.4)'
+          ],
+          borderColor: '#1a1d2e',
+          borderWidth: 3,
+          hoverOffset: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        cutout: '62%',
+        plugins: {
+          legend: { position: 'bottom', labels: { color: '#8b90b8', font: { size: 11 }, padding: 12 } }
+        }
+      }
+    });
+  }
+</script>
+</body>
+      </html>
