@@ -1,6 +1,92 @@
-     display: flex;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Strategy Discovery Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* ── CSS VARIABLES ── */
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d2e;
+      --border: #2e3250;
+      --accent: rgba(108,99,255,1);
+      --accent2: rgba(0,212,170,1);
+      --text: #e8eaf6;
+      --text2: #8b90b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .header h1 { font-size: 20px; font-weight: 700; color: var(--text); }
+    .header-left { display: flex; flex-direction: column; gap: 4px; }
+    .header-left span { color: var(--text2); font-size: 13px; }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    /* ── BADGES ── */
+    .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+    .badge.grey { background: var(--border); color: var(--text2); }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .tab {
+      padding: 12px 16px;
+      cursor: pointer;
+      color: var(--text2);
+      font-size: 13px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .tab.active { color: var(--text); border-bottom-color: var(--accent); }
+    .tab:hover { color: var(--text); }
+
+    /* ── MAIN / GRID ── */
+    .main { padding: 24px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .col-span-2 { grid-column: span 2; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .card-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text2);
+      margin-bottom: 14px;
     }
 
     /* ── SCROLLBAR ── */
@@ -49,54 +135,104 @@
   <div class="header-right">
     <span class="badge" style="background: var(--accent2); color: #000;">🎙 Phase 1 Day 2 — Interviews Live · 8 Sessions Today</span>
     <span class="badge grey">6 Complete · 2 In Progress · 8 Running Today · 53 Total</span>
-    <span class="last-upted = true;
+  </div>
+</div>
 
-    const themeCtx = document.getElementById('themeChart').getContext('2d');
-    // Day 1 data — 6 interviews: Jimmy (Eng), Steve (Sales), Weldon (Leadership), Maz (Solutions), Daniel (Marketing), Ashley (Ops)
-    new Chart(themeCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Governance & Risk', 'Skills & Change Mgmt', 'Infrastructure Gap', 'Product Dev / API-first', 'Process Automation', 'Knowledge Mgmt', 'Customer Exp / CX', 'Data & Analytics'],
-        datasets: [{
-          label: 'Interviews mentioning (of 6)',
-          data: [6, 6, 5, 4, 4, 3, 2, 2],
-          backgroundColor: [
-            'rgba(255,107,107,0.55)', 'rgba(255,107,107,0.55)',
-            'rgba(255,209,102,0.55)', 'rgba(108,99,255,0.45)',
-            'rgba(108,99,255,0.45)', 'rgba(0,212,170,0.35)',
-            'rgba(0,212,170,0.25)', 'rgba(0,212,170,0.25)'
-          ],
-          borderRadius: 6,
-          borderSkipped: false
-        }]
-      },          label: 'Interviews mentioning (of 6)',
-          data: [6, 6, 5, 4, 4, 3, 2, 2],
-          backgroundColor: [
-            'rgba(255,107,107,0.55)', 'rgba(255,107,107,0.55)',
-            'rgba(255,209,102,0.55)', 'rgba(108,99,255,0.45)',
-            'rgba(108,99,255,0.45)', 'rgba(0,212,170,0.35)',
-            'rgba(0,212,170,0.25)', 'rgba(0,212,170,0.25)'
-          ],
-          borderRadius: 6,
-          borderSkipped: false
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        plugins: {
-          legend: { display: false },
-          tooltip: { callbacks: { label: ctx => `  ${ctx.raw} of 6 interviews` } }
-        },
-        scales: {
-          x: { grid: { color: 'rgba(46,50,80,0.5)' }, ticks: { color: '#8b90b8', font: { size: 11 } }, min: 0, max: 6 },
-          y: { grid: { display: false }, ticks: { color: '#e8eaf6', font: { size: 11 } } }
-        }
-      }
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="showTab('themes')">Theme Analysis</div>
+  <div class="tab" onclick="showTab('functions')">By Function</div>
+  <div class="tab" onclick="showTab('maturity')">Maturity</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TAB: THEMES -->
+  <div class="tab-panel active" id="tab-themes">
+    <div class="grid-2">
+      <div class="card col-span-2">
+        <div class="card-title">Theme Frequency — Day 1 (6 Interviews)</div>
+        <canvas id="themeChart" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: FUNCTIONS -->
+  <div class="tab-panel" id="tab-functions">
+    <div class="grid-2">
+      <div class="card col-span-2">
+        <div class="card-title">Theme Prominence by Function</div>
+        <canvas id="functionThemeChart" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: MATURITY -->
+  <div class="tab-panel" id="tab-maturity">
+    <div class="grid-3">
+      <div class="card col-span-2">
+        <div class="card-title">AI Maturity Distribution</div>
+        <canvas id="maturityChart" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ── TAB SWITCHING ──
+  const TAB_NAMES = ['themes', 'functions', 'maturity'];
+  function showTab(name) {
+    document.querySelectorAll('.tab').forEach((t, i) => {
+      t.classList.toggle('active', TAB_NAMES[i] === name);
     });
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    if (name === 'functions') initFunctionChart();
+    if (name === 'maturity') initMaturityChart();
+  }
 
+  // ── THEME CHART ──
+  const themeCtx = document.getElementById('themeChart').getContext('2d');
+  // Day 1 data — 6 interviews: Jimmy (Eng), Steve (Sales), Weldon (Leadership), Maz (Solutions), Daniel (Marketing), Ashley (Ops)
+  new Chart(themeCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Governance & Risk', 'Skills & Change Mgmt', 'Infrastructure Gap', 'Product Dev / API-first', 'Process Automation', 'Knowledge Mgmt', 'Customer Exp / CX', 'Data & Analytics'],
+      datasets: [{
+        label: 'Interviews mentioning (of 6)',
+        data: [6, 6, 5, 4, 4, 3, 2, 2],
+        backgroundColor: [
+          'rgba(255,107,107,0.55)', 'rgba(255,107,107,0.55)',
+          'rgba(255,209,102,0.55)', 'rgba(108,99,255,0.45)',
+          'rgba(108,99,255,0.45)', 'rgba(0,212,170,0.35)',
+          'rgba(0,212,170,0.25)', 'rgba(0,212,170,0.25)'
+        ],
+        borderRadius: 6,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => `  ${ctx.raw} of 6 interviews` } }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(46,50,80,0.5)' }, ticks: { color: '#8b90b8', font: { size: 11 } }, min: 0, max: 6 },
+        y: { grid: { display: false }, ticks: { color: '#e8eaf6', font: { size: 11 } } }
+      }
+    }
+  });
+
+  // ── FUNCTION THEME CHART (lazy init) ──
+  let functionChartInited = false;
+  function initFunctionChart() {
+    if (functionChartInited) return;
+    functionChartInited = true;
     const fnCtx = document.getElementById('functionThemeChart').getContext('2d');
-    // Axes: how prominently each function raised each theme (1–5 scale)
     new Chart(fnCtx, {
       type: 'radar',
       data: {
@@ -144,7 +280,7 @@
     });
   }
 
-  // ── MATURITY CHART (empty — will populate with real data) ──
+  // ── MATURITY CHART (lazy init) ──
   let maturityChartInited = false;
   function initMaturityChart() {
     if (maturityChartInited) return;
@@ -177,4 +313,4 @@
   }
 </script>
 </body>
-      </html>
+</html>
