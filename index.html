@@ -142,7 +142,6 @@
 <div class="tabs">
   <div class="tab active" onclick="showTab('themes')">Theme Analysis</div>
   <div class="tab" onclick="showTab('functions')">By Function</div>
-  <div class="tab" onclick="showTab('maturity')">Maturity</div>
 </div>
 
 <!-- MAIN -->
@@ -168,21 +167,12 @@
     </div>
   </div>
 
-  <!-- TAB: MATURITY -->
-  <div class="tab-panel" id="tab-maturity">
-    <div class="grid-3">
-      <div class="card col-span-2">
-        <div class="card-title">AI Maturity Distribution</div>
-        <canvas id="maturityChart" height="300"></canvas>
-      </div>
-    </div>
-  </div>
 
 </div>
 
 <script>
   // ── TAB SWITCHING ──
-  const TAB_NAMES = ['themes', 'functions', 'maturity'];
+  const TAB_NAMES = ['themes', 'functions'];
   function showTab(name) {
     document.querySelectorAll('.tab').forEach((t, i) => {
       t.classList.toggle('active', TAB_NAMES[i] === name);
@@ -190,7 +180,6 @@
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('tab-' + name).classList.add('active');
     if (name === 'functions') initFunctionChart();
-    if (name === 'maturity') initMaturityChart();
   }
 
   // ── THEME CHART ──
@@ -280,37 +269,6 @@
     });
   }
 
-  // ── MATURITY CHART (lazy init) ──
-  let maturityChartInited = false;
-  function initMaturityChart() {
-    if (maturityChartInited) return;
-    maturityChartInited = true;
-    const ctx = document.getElementById('maturityChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: ['L1 Unaware', 'L2 Experimenting', 'L3 Adopting', 'L4 Scaling', 'L5 Transforming'],
-        datasets: [{
-          // Day 1: L1=0, L2=2 (Steve·Ashley), L3=2 (Weldon·Daniel), L4=2 (Jimmy·Maz), L5=0
-          data: [0, 2, 2, 2, 0],
-          backgroundColor: [
-            'rgba(255,107,107,0.4)', 'rgba(255,209,102,0.4)',
-            'rgba(108,99,255,0.4)', 'rgba(0,212,170,0.4)', 'rgba(0,255,200,0.4)'
-          ],
-          borderColor: '#1a1d2e',
-          borderWidth: 3,
-          hoverOffset: 8
-        }]
-      },
-      options: {
-        responsive: true,
-        cutout: '62%',
-        plugins: {
-          legend: { position: 'bottom', labels: { color: '#8b90b8', font: { size: 11 }, padding: 12 } }
-        }
-      }
-    });
-  }
 </script>
 </body>
 </html>
